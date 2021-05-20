@@ -1,4 +1,4 @@
-import {calculator, rest, sum} from './tasks';
+import {addFriends, calculator, rest, StudentType, sum} from './tasks';
 
 /*test("sum of two number", () => {
   //1. Тестовые данные
@@ -28,22 +28,39 @@ test('calculator', () => {
   expect(calculator(2,3,{type: 'sub'})).toBe(-1)
 })
 
-export type StudentType = {
-  name: string
-  isStudent: boolean
-  friends: Array<string>
-}
 
-export const addFriends = (students: Array<StudentType>): Array<StudentType> => {
-  const studentNames = students.map(st => st.name)
-  return students.map(st => {
-    const namesWithoutSt = studentNames.filter(name => name !== st.name)
-    return {
-      ...st,
-      friends: namesWithoutSt
-    }
-  })
-}
 
-// ДЗ: написать тест на функцию
-// создать тестовые данные, минимально 3х студентов
+
+test('add friends to students', () => {
+  //1. Тестовые данные
+  const students: Array<StudentType> = [
+    {
+      name: 'Bob',
+      age: 22,
+      isMarried: true,
+      scores: 85
+    },
+    {
+      name: 'Alex',
+      age: 21,
+      isMarried: true,
+      scores: 90
+    },
+    {
+      name: 'Nick',
+      age: 20,
+      isMarried: false,
+      scores: 120
+    },
+  ];
+  //2. Выполнение тестируемого кода с тестовыми данными
+  let newStudents = addFriends(students)
+  //3. Проверка ожидаемого результата
+  expect(students).not.toEqual(newStudents)
+  expect(newStudents[0].friends).toStrictEqual(["Alex", "Nick"])
+  expect(newStudents[1].friends).toStrictEqual(["Bob", "Nick"])
+  expect(newStudents[2].friends).toStrictEqual(["Bob", "Alex"])
+})
+
+
+
