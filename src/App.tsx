@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {addFriends, StudentType} from './tasks/tasks';
+import {getSum} from './tasks2/tasks';
 
 const students: Array<StudentType> = [
   {
@@ -27,11 +28,12 @@ const students: Array<StudentType> = [
 
 function App() {
 
-  console.log('==before addFriends call==')
+  /*console.log('==before addFriends call==')
   console.log(students);
   console.log('===after addFriends call==')
-  console.log(addFriends(students));
+  console.log(addFriends(students));*/
 
+  console.log(getSum(1234));
 
   return (
     <div>
