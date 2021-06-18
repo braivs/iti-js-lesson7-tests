@@ -4,7 +4,7 @@
 export function sum( ...nums: Array<any>): number {
     //...здесь пишем код.
     // В return стоит "заглушка", чтоб typescript не ругался
-    return nums.reduce((acc, cur) => acc + cur)
+    return nums.reduce((acc,cur) => acc + cur)
 }
 
 
@@ -17,12 +17,10 @@ export function sum( ...nums: Array<any>): number {
 //  - "00", если такого треугольника не существует.
 
 export function getTriangleType(a: number,b: number,c: number): string {
-    //...здесь пишем код.
-    // В return стоит "заглушка", чтоб typescript не ругался
-    if (a + b < c || a + c < b || b + c < a) return '00'
+    if (a + b < c || b + c < a || a + c < b) return  '00'
     else if (a === b && b === c && a === c) return '10'
     else if (a === b || b === c || a === c) return '01'
-    else return "11"
+    else return '11'
 }
 
 
@@ -32,11 +30,11 @@ export function getTriangleType(a: number,b: number,c: number): string {
 export function getSum(number: number): number{
     //...здесь пишем код.
     // В return стоит "заглушка", чтоб typescript не ругался
-    return number
+    let result = number
       .toString()
       .split('')
-      .map(x => Number(x))
-      .reduce((acc, cur) => acc + cur)
+      .map(e => Number(e))
+    return result.reduce((acc,cur) => acc + cur)
 }
 
 
@@ -46,16 +44,12 @@ export function getSum(number: number): number{
 // В противном случае - false.
 
 export const isEvenIndexSumGreater = (arr: Array<number>): boolean => {
-    let sumEven = 0;
-    let sumOdd = 0;
-    for (let i = 0; i < arr.length; i++) {
-        let curNumber = arr[i]
-        for (let j = 0; j < curNumber.toString().length; j++) {
-            if (j === 0 || j === 2) sumEven += Number(curNumber.toString()[j])
-            if (j === 1) sumOdd += Number(curNumber.toString()[j])
-        }
-    }
-    return sumEven > sumOdd
+  let oddNumbers = 0; // нечётные
+  let evenNumbers = 0; // чётные
+  for (let i = 0; i < arr.length; i++) {
+    i % 2 === 0 ? evenNumbers += arr[i] : oddNumbers += arr[i]
+  }
+  return evenNumbers > oddNumbers
 }
 
 
@@ -64,11 +58,9 @@ export const isEvenIndexSumGreater = (arr: Array<number>): boolean => {
 // квадрата и false в противном случае. Центры фигур совпадают.
 
 export function isSquareGreater(areaCr: number, areaSq: number): boolean {
-    //...здесь пишем код.
-    // В return стоит "заглушка", чтоб typescript не ругался
-    let radios = Math.sqrt(areaCr/Math.PI)
-    let diagonal = Math.sqrt(2 * areaSq)
-    return radios / 2 < diagonal / 2
+    const r = Math.sqrt(areaCr / Math.PI)
+    const a = Math.sqrt(areaSq)
+    return r <= a / 2
 }
 
 
@@ -79,7 +71,15 @@ export function isSquareGreater(areaCr: number, areaSq: number): boolean {
 // Считаем, что количество банкнот каждого номинала не ограничено
 
 export function getBanknoteList(amountOfMoney: number): Array<number> {
-    //...здесь пишем код.
-    // В return стоит "заглушка", чтоб typescript не ругался
-    return [1]
+    const banknotes = [1000, 500, 100, 50, 20, 10, 5, 2, 1]
+    const banknotesToGive = []
+    let nominalIndex = 0
+    for (let i = 0; i < banknotes.length; i++) {
+      if (amountOfMoney <= 0) break
+      while (amountOfMoney - banknotes[i] >= 0) {
+        amountOfMoney -= banknotes[i];
+        banknotesToGive.push(banknotes[i])
+      }
+    }
+    return banknotesToGive
 }
